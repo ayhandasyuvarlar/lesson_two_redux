@@ -1,12 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import CreatePostsForm from "./features/createPostsForm";
+import PostList from "./post/PostList";
+
 const App = () => {
-  const data = useSelector((state) => state.post);
-  console.log(data);
-  return <div>{
-    JSON.stringify(data)
-  }
-  </div>;
+  return (
+    <div className="App"> 
+      <CreatePostsForm/>
+      <PostList/>
+    </div>
+  );
 };
 
 export default App;
