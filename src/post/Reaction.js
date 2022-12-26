@@ -27,6 +27,6 @@ const ReactionButton = ({ post }) => {
     );
   });
 
-  return <div className="reaction-group">{reactionButtons}</div>;
+  return <div>{reactionButtons}</div>;
 };
 export default ReactionButton;

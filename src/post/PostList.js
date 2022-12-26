@@ -23,13 +23,17 @@ const PostList = () => {
     }
   }, [status, dispatch]);
   let content;
-  if (status === 'loading') {
-      content = <p>Loading...</p>;
-  } else if (status === 'succeeded') {
-      const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
-      content = orderedPosts.map(post => <PostsExcerpt key={post.id} post={post} />)
-  } else if (status === 'failed') {
-      content = <p>{error}</p>;
+  if (status === "loading") {
+    content = <p>Loading...</p>;
+  } else if (status === "succeeded") {
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    content = orderedPosts.map((post) => (
+      <PostsExcerpt key={post.id} post={post} />
+    ));
+  } else if (status === "failed") {
+    content = <p>{error}</p>;
   }
   return (
     <main>

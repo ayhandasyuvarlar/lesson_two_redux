@@ -7,7 +7,7 @@ const PostsExcerpt = ({ post }) => {
     <div>
       <article className={"posts_card"}>
         <h3>{post.title}</h3>
-        
+        <p>{post.body.substring(0, 100)}</p>
         <PostAuthor userId={post.userId} />
         <Time timestamp={post.date} />
         <ReactionButton post={post} />
