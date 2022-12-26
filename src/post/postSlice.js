@@ -15,6 +15,17 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     return error.message;
   }
 });
+export const addNewPost = createAsyncThunk(
+  "posts/newPost",
+  async (initialPost) => {
+    try {
+      const response = await axios.post(POST_URL, initialPost);
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 const postSlice = createSlice({
   name: "posts",
   initialState,
@@ -43,12 +54,12 @@ const postSlice = createSlice({
       },
     },
     reactionAdded(state, action) {
-      const { postId, reaction } = action.payload;
-      const existingPost = state.posts.find((post) => post.id === postId);
+      const { postId, reaction } = action.payload
+      const existingPost = state.posts.find(post => post.id === postId)
       if (existingPost) {
-        existingPost.reactions[reaction]++;
+          existingPost.reactions[reaction]++
       }
-    },
+  }
   },
   extraReducers(builder) {
     builder
@@ -67,7 +78,6 @@ const postSlice = createSlice({
             heart: 0,
             rocket: 0,
             coffee: 0,
-            eyes: 0,
           };
           return post;
         });
@@ -77,6 +87,18 @@ const postSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        action.payload.userId = Number(action.payload.userId);
+        action.payload.date = new Date().toISOString();
+        action.payload.reactions = {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0,
+        };
+        state.posts.push(action.payload);
       });
   },
 });

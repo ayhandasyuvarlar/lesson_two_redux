@@ -107,6 +107,10 @@ export const store = configureStore({
 #### createSlice fonksiyonunun yapısı aşağıdaki gibi:
 
 ```jsx
+const initialState = {
+  posts: [],
+};
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
@@ -201,3 +205,4 @@ extraReducers(builder) {
 ```
 
 Redux Toolkit ile örnek bir uygulama
+
